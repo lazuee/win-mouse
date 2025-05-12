@@ -1,39 +1,66 @@
 {
-  "name": "win-mouse",
-  "version": "2.0.1",
+  "name": "@lazuee/win-mouse",
+  "type": "module",
+  "version": "1.0.0",
   "description": "Mouse tracking for Windows",
-  "main": "index.js",
-  "scripts": {
-    "lint": "standard",
-    "test": "node test/parallel-destroy && node test/parallel-unref && node test/sequence-destroy && node test/sequence-unref"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kapetan/win-mouse"
-  },
   "keywords": [
-    "track",
-    "mouse",
-    "events",
-    "windows",
-    "native",
-    "screen",
     "display",
-    "position"
+    "events",
+    "mouse",
+    "native",
+    "position",
+    "screen",
+    "track",
+    "windows"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kapetan/win-mouse/issues"
+  "author": "lazuee",
+  "homepage": "https://github.com/lazuee/win-mouse",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazuee/win-mouse.git"
   },
-  "homepage": "https://github.com/kapetan/win-mouse",
+  "bugs": {
+    "url": "https://github.com/lazuee/win-mouse/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "LICENSE.md",
+    "binding.gyp",
+    "dist",
+    "lib"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:lib": "tsdown",
+    "build:native": "node-gyp rebuild",
+    "eslint": "eslint .",
+    "test": "node test/parallel-destroy && node test/parallel-unref && node test/sequence-destroy && node test/sequence-unref"
+  },
   "dependencies": {
-    "bindings": "^1.5.0",
-    "nan": "^2.14.1"
+    "emittery": "^1.1.0"
+  },
+  "devDependencies": {
+    "@ntnyq/eslint-config": "^4.2.0",
+    "@types/bindings": "^1.5.5",
+    "@types/node": "^22.15.17",
+    "eslint-plugin-format": "^1.0.1",
+    "nan": "^2.22.2",
+    "tsdown": "^0.11.5",
+    "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "unrs-resolver"
+    ]
   },
   "os": [
     "win32"
-  ],
-  "devDependencies": {
-    "standard": "^14.3.4"
-  }
+  ]
 }

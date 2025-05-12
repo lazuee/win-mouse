@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        name:
+          - win32
+        arch:
+          - x64
+          - arm64
+        node:
+          - 22
+        include:
+          - name: win32
+            os: windows-latest
+        exclude:
+          - name: win32
+            arch: arm64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js "${{ matrix.node }}.x" environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: Install node dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - run: pnpm run build --lib
+      - run: pnpm run build --native --arch=arm64
+
+      - name: Upload win-mouse
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-mouse
+          path: dist
+          if-no-files-found: error
+
+      - name: Upload win-mouse-${{ matrix.name }}-${{ matrix.arch }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-mouse-${{ matrix.name }}-${{ matrix.arch }}
+          path: node_modules/@lazuee/win-mouse-${{ matrix.name }}-${{ matrix.arch }}
+          if-no-files-found: error
+
+      - name: Upload win-mouse-${{ matrix.name }}-arm64
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-mouse-${{ matrix.name }}-arm64
+          path: node_modules/@lazuee/win-mouse-${{ matrix.name }}-arm64
+          if-no-files-found: error

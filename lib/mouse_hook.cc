@@ -11,6 +11,15 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam) {
 		MSLLHOOKSTRUCT* data = (MSLLHOOKSTRUCT*) lParam;
 		POINT point = data->pt;
 
+		if (wParam == WM_MOUSEWHEEL) {
+			SHORT delta = GET_WHEEL_DELTA_WPARAM(data->mouseData);
+			if (delta > 0) {
+				wParam = WM_MOUSEWHEEL; // up
+			} else {
+				wParam = WM_MOUSEHWHEEL; // down
+			}
+		}
+
 		MouseHookManager::GetInstance()->_HandleEvent(wParam, point);
 	}
 
@@ -50,7 +59,7 @@ MouseHookManager::~MouseHookManager() {
 
 MouseHookRef MouseHookManager::Register(MouseHookCallback callback, void* data) {
 	uv_mutex_lock(&event_lock);
-	
+
 	bool empty = listeners->empty();
 
 	MouseHookRef entry = new MouseHookEntry();
@@ -59,7 +68,7 @@ MouseHookRef MouseHookManager::Register(MouseHookCallback callback, void* data) 
 	listeners->push_back(entry);
 
 	uv_mutex_unlock(&event_lock);
-	
+
 	if(empty) uv_thread_create(&thread, RunThread, this);
 
 	return entry;
@@ -73,7 +82,7 @@ void MouseHookManager::Unregister(MouseHookRef ref) {
 	bool empty = listeners->empty();
 
 	uv_mutex_unlock(&event_lock);
-	
+
 	if(empty) Stop();
 }
 
@@ -95,7 +104,7 @@ void MouseHookManager::_Run() {
 
 	PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
 	thread_id = GetCurrentThreadId();
-	
+
 	uv_cond_signal(&init_cond);
 	uv_mutex_unlock(&init_lock);
 
@@ -118,7 +127,7 @@ void MouseHookManager::Stop() {
 
 	while(thread_id == NULL) uv_cond_wait(&init_cond, &init_lock);
 	DWORD id = thread_id;
-	
+
 	uv_mutex_unlock(&init_lock);
 
 	PostThreadMessage(id, WM_STOP_MESSAGE_LOOP, NULL, NULL);

@@ -41,7 +41,7 @@ class MouseHookManager {
 
 		MouseHookManager();
 		~MouseHookManager();
-		
+
 		void Stop();
 };
 

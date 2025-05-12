@@ -1,22 +1,23 @@
-var mouse = require('../')
+// eslint-disable-next-line antfu/no-import-dist
+import { WinMouse } from "../dist/index.mjs";
 
-var m1 = mouse()
-var m2 = mouse()
+const m1 = new WinMouse();
+const m2 = new WinMouse();
 
-m1.on('move', function (x, y) {
-  console.log('move_1', x, y)
-})
+m1.on("mouse", (obj) => {
+  console.log("mouse_1", obj);
+});
 
-m2.on('move', function (x, y) {
-  console.log('move_2', x, y)
-})
+m2.on("mouse", (obj) => {
+  console.log("mouse_2", obj);
+});
 
-setTimeout(function () {
-  m1.destroy()
-  console.log('destroy_1')
+setTimeout(() => {
+  m1.destroy();
+  console.log("destroy_1");
 
-  setTimeout(function () {
-    m2.destroy()
-    console.log('destroy_2')
-  }, 1000)
-}, 1000)
+  setTimeout(() => {
+    m2.destroy();
+    console.log("destroy_2");
+  }, 1000);
+}, 1000);

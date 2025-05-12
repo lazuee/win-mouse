@@ -1,0 +1,84 @@
+# Source Code
+*.java   text eol=lf diff=java
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.cjs    text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.mts    text eol=lf
+*.as     text eol=lf
+
+# Web/Markup
+*.html   text eol=lf diff=html
+*.css    text eol=lf diff=css
+*.scss   text eol=lf diff=css
+*.sass   text eol=lf
+*.svg    text eol=lf
+*.xml    text eol=lf
+
+# Documentation
+*.md     text eol=lf diff=markdown
+
+# Config Files
+*.yaml   text eol=lf
+*.yml    text eol=lf
+*.json   text eol=lf
+*.cnf    text eol=lf
+*.conf   text eol=lf
+*.config text eol=lf
+*.plist  text eol=lf
+.env     text eol=lf
+.env.*   text eol=lf
+.npmrc   text eol=lf
+.gitattributes text eol=lf
+.gitconfig text eol=lf
+*.*ignore text eol=lf
+.prettierrc text eol=lf
+.editorconfig text eol=lf
+
+# Special JSON Handling
+tsconfig.json text eol=lf linguist-language=JSON-with-Comments
+
+# Package Managers
+package.json      text eol=lf
+package-lock.json text eol=lf -diff
+pnpm-lock.yaml    text eol=lf -diff
+*.lock            text eol=lf -diff
+
+# Binaries
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.ico   binary
+*.gif   binary
+*.tiff  binary
+*.webp  binary
+*.icns  binary
+*.mp3   binary
+*.ogg   binary
+*.mov   binary
+*.mp4   binary
+*.avi   binary
+*.webm  binary
+*.7z    binary
+*.rar   binary
+*.tar   binary
+*.zip   binary
+*.ttf   binary
+*.eot   binary
+*.otf   binary
+*.woff  binary
+*.woff2 binary
+*.class binary
+*.dll   binary
+*.exe   binary
+
+# Docker
+Dockerfile* text eol=lf
+
+# Node Addon
+*.node binary
+*.cc   text eol=lf
+*.cpp  text eol=lf
+*.h    text eol=lf
+*.gyp  text eol=lf

@@ -1,0 +1,30 @@
+{
+  "explorer.sortOrder": "type",
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-workspace.yaml, pnpm-lock.yaml"
+  },
+  "npm.packageManager": "pnpm",
+  "search.exclude": {
+    "pnpm-lock.yaml": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsc.autoDetect": "off",
+  "files.eol": "\n",
+  "files.autoGuessEncoding": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.autoSave": "onFocusChange",
+  "prettier.enable": false,
+  "eslint.enable": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.fixAll.ts": "explicit",
+    "source.organizeImports": "never",
+    "source.sortImports": "never"
+  }
+}

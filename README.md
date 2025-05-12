@@ -1,25 +1,30 @@
-# win-mouse
+## win-mouse
 
-[![Build status](https://ci.appveyor.com/api/projects/status/wj9wy01q1ufhmfns?svg=true)](https://ci.appveyor.com/project/kapetan/win-mouse)
+> `win-mouse` is a Windows-based mouse tracking that reports screen coordinates of mouse events, including when other applications are active in the foreground.
 
-Mouse tracking for Windows. Receive the screen position of various mouse events. The events are also emitted while another application is in the foreground.
+### Installation
 
-Versions of this library prior to version 2.0.0 also run with Node.js version 9 and below. Version 2.0.0 and above are context-aware.
+Install the package:
 
-	npm install win-mouse
-
-# Usage
-
-The module returns an event emitter instance.
-
-```javascript
-var mouse = require('win-mouse')()
-
-mouse.on('move', function(x, y) {
-	console.log(x, y)
-})
+```bash
+pnpm add -D @lazuee/win-mouse
 ```
 
-The program will not terminate as long as a mouse listener is active. To allow the program to exit, either call `mouse.unref` (works as `unref`/`ref` on a TCP server) or `mouse.destroy()`.
+### Usage
 
-The events emitted are: `move`, `left-down`, `left-up`, `left-drag`, `right-up`, `right-down` and `right-drag`. For each event the screen coordinates are passed to the handler function.
+```js
+import { WinMouse } from "@lazuee/win-mouse";
+const mouse = new WinMouse();
+
+mouse.on("mouse", console.log);
+setTimeout(() => mouse.destroy(), 5_000);
+
+```
+
+For a usage example, check the [`test/`](./test) directory.
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details
+
+Copyright © `2025` `lazuee`
